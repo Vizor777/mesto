@@ -10,7 +10,9 @@
 * Использование media queries;
 * Работа с ветками (branches) в гите;
 * Flex Layout;
-* Grid Layout.
+* Grid Layout;
+* JS;
+* HTML Form.
 
 ## Ссылка на GitHub Pages:
-
+https://vizor777.github.io/mesto/
