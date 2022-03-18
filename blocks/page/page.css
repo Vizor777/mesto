@@ -1,0 +1,16 @@
+.page {
+  background-color: black;
+  font-family:'Inter','Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  color: white;
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: repeat(3, auto);
+  gap: 0px 0px;
+  grid-template-areas:
+    "header"
+    "main"
+    "footer";
+
+}

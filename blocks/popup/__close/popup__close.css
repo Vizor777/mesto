@@ -1,0 +1,32 @@
+.popup__close {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  background: none;
+  position: absolute;
+  left: 438px;
+  top: -40px;
+}
+
+.popup__close::after {
+  position: absolute;
+  top: -4px;
+  left: 15px;
+  content: '';
+  border: 1px solid white;
+  height: 40px;
+  box-sizing: border-box;
+  transform: rotate(45deg);
+}
+.popup__close::before {
+  position: absolute;
+  top: -4px;
+  left: 15px;
+  content: '';
+  border: 1px solid white;
+  height: 40px;
+  box-sizing: border-box;
+  transform: rotate(-45deg);
+}

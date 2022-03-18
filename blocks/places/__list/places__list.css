@@ -1,0 +1,24 @@
+.places__list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  display: grid;
+  grid-template-columns: minmax(220px, 282px) minmax(220px, 282px) minmax(220px, 282px);
+  grid-template-rows: auto auto;
+  gap: 20px 17px;
+  justify-content: center;
+}
+
+@media screen and (min-width: 320px) and (max-width: 720px) {
+  .places__list {
+    grid-template-columns: minmax(220px, 282px);
+
+  }
+}
+
+@media screen and (min-width: 721px) and (max-width: 1024px) {
+  .places__list {
+    grid-template-columns: minmax(220px, 282px) minmax(220px, 282px);
+
+  }
+}

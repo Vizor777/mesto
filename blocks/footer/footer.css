@@ -1,0 +1,12 @@
+.footer {
+  grid-area: footer;
+  width: calc(100% - 200px*2);
+  margin: 0px auto 0 auto;
+}
+
+@media screen and (min-width: 320px) and (max-width: 720px) {
+  .footer {
+
+    width: calc(100% - 19px*2);
+  }
+}

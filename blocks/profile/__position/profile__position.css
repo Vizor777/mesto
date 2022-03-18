@@ -1,0 +1,15 @@
+.profile__position {
+  font-size: 18px;
+  line-height: 22px;
+  grid-area: sub;
+  margin: 0 0 25px 0;
+  align-self: flex-end;
+}
+
+@media screen and (min-width: 320px) and (max-width: 720px) {
+  .profile__position {
+    justify-self: center;
+    font-size: 14px;
+    line-height: 17px;
+  }
+}
