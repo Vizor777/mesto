@@ -7,10 +7,11 @@
 @media screen and (min-width: 320px) and (max-width: 768px) {
   .main {
     width: calc(100% - 19px*2);
+    margin-bottom: 46px;
   }
 }
 
-@media screen and (min-width: 769px) and (max-width: 1024px) {
+@media screen and (min-width: 769px) and (max-width: 1279px) {
   .main {
     width: calc(100% - 100px*2);
   }

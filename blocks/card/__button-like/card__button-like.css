@@ -1,0 +1,18 @@
+.card__button-like {
+  min-width: 22px;
+  height: 19px;
+  padding: 0;
+  margin-left: 20px;
+  border: none;
+  background-image: url(../../../images/like-button.svg);
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.card__button-like:hover {
+  opacity: 0.5;
+}
+
+.card__button-like:active {
+  background-image: url(../../../images/union.svg);
+}

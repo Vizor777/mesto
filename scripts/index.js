@@ -1,31 +1,38 @@
+let popup = document.querySelector('.popup');
 let editButton = document.querySelector('.profile__edit-button');
-let editForm = document.querySelector('.popup');
-let closeFormButton = editForm.querySelector('.popup__close');
-let inputs = editForm.querySelectorAll('.popup__input');
+let editForm = popup.querySelector('.popup__form');
+let closeFormButton = popup.querySelector('.popup__close');
+let inputName = editForm.querySelector('.popup__input_type_name');
+let inputPosition = editForm.querySelector('.popup__input_type_position');
 let nameUser = document.querySelector('.profile__name');
 let positionUser = document.querySelector('.profile__position');
 
-editButton.addEventListener('click', function () {
-  editForm.classList.add('popup_opened');
+
+
+
+
+function openPopup() {
+  popup.classList.add('popup_opened');
   loadData();
-
-});
-closeFormButton.addEventListener('click', function () {
-  editForm.classList.remove('popup_opened');
-})
-editForm.addEventListener('submit', formSubmitHandler);
-
-
+}
+function closePopup() {
+  popup.classList.remove('popup_opened');
+}
 function loadData() {
-  inputs[0].value = nameUser.textContent;
-  inputs[1].value = positionUser.textContent;
+  inputName.value = nameUser.textContent;
+  inputPosition.value = positionUser.textContent;
 }
 function writeData() {
-  nameUser.textContent = inputs[0].value;
-  positionUser.textContent = inputs[1].value;
+  nameUser.textContent = inputName.value;
+  positionUser.textContent = inputPosition.value;
 }
-function formSubmitHandler (evt) {
+function submitHandler (evt) {
   evt.preventDefault();
   writeData();
-  editForm.classList.remove('popup_opened');
+  closePopup();
 }
+
+
+editButton.addEventListener('click', openPopup);
+closeFormButton.addEventListener('click', closePopup);
+editForm.addEventListener('submit', submitHandler);

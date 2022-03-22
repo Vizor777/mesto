@@ -5,9 +5,15 @@
   grid-area: header;
 }
 
-@media screen and (min-width: 320px) and (max-width: 1024px) {
+@media screen and (min-width: 320px) and (max-width: 1023px) {
   .header {
     width: 100%;
     margin-bottom: 42px;
+  }
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1279px) {
+  .header {
+    width: calc(100% - 100px*2);
   }
 }

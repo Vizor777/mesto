@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="pages/index.css">
   <title>Mesto</title>
 </head>
-<body>
+<body class="container">
   <div class="page">
     <header class="header">
       <a class="header__link" href="#"><img class="header__logo" src="images/logo.svg" alt="Логотип"></a>
@@ -15,88 +15,92 @@
     <main class="main">
       <section class="profile">
         <div class="profile__info">
-          <img class="profile__avatar" src="images/Avatar.png" alt="Аватар профиля">
+          <img class="profile__avatar" src="images/avatar.jpg" alt="Аватар профиля">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
           <p class="profile__position">Исследователь океана</p>
-          <button class="profile__edit-button" type="button"></button>
+          <button class="profile__edit-button" type="button" aria-label="Кнопка изменения профиля"></button>
         </div>
-        <button class="profile__add-button" type="button"></button>
+        <button class="profile__add-button" type="button" aria-label="Кнопка добавления карточки места"></button>
       </section>
       <section class="places">
         <ul class="places__list">
           <li class="places__item">
-            <article class="places__card">
-              <img class="places__image" src="images/karach.jpg" alt="Фото места">
-              <div class="places__container">
-                <h2 class="places__title">Карачаевск</h2>
-                <button class="places__button-like"></button>
+            <div class="card">
+              <img class="card__image" src="images/karach.jpg" alt="Фото Карачаевска">
+              <div class="card__container">
+                <h2 class="card__title">Карачаевск</h2>
+                <button class="card__button-like" type="button"
+                  aria-label="Кнопка 'мне нравится' карточки места"></button>
               </div>
-            </article>
+            </div>
           </li>
           <li class="places__item">
-            <article class="places__card">
-              <img class="places__image" src="images/elbrus.jpg" alt="Фото места">
-              <div class="places__container">
-                <h2 class="places__title">Гора Эльбрус</h2>
-                <button class="places__button-like"></button>
+            <div class="card">
+              <img class="card__image" src="images/elbrus.jpg" alt="Фото Эльбруса">
+              <div class="card__container">
+                <h2 class="card__title">Гора Эльбрус</h2>
+                <button class="card__button-like" type="button"
+                  aria-label="Кнопка 'мне нравится' карточки места"></button>
               </div>
-            </article>
+            </div>
           </li>
           <li class="places__item">
-            <article class="places__card">
-              <img class="places__image" src="images/donbay.jpg" alt="Фото места">
-              <div class="places__container">
-                <h2 class="places__title">Домбай</h2>
-                <button class="places__button-like"></button>
+            <div class="card">
+              <img class="card__image" src="images/donbay.jpg" alt="Фото Домбая">
+              <div class="card__container">
+                <h2 class="card__title">Домбай</h2>
+                <button class="card__button-like" type="button"
+                  aria-label="Кнопка 'мне нравится' карточки места"></button>
               </div>
-            </article>
+            </div>
           </li>
           <li class="places__item">
-            <article class="places__card">
-              <img class="places__image" src="images/elbrus.jpg" alt="Фото места">
-              <div class="places__container">
-                <h2 class="places__title">Гора Эльбрус</h2>
-                <button class="places__button-like"></button>
+            <div class="card">
+              <img class="card__image" src="images/elbrus.jpg" alt="Фото Эльбруса">
+              <div class="card__container">
+                <h2 class="card__title">Гора Эльбрус</h2>
+                <button class="card__button-like" type="button"
+                  aria-label="Кнопка 'мне нравится' карточки места"></button>
               </div>
-            </article>
+            </div>
           </li>
           <li class="places__item">
-            <article class="places__card">
-              <img class="places__image" src="images//donbay.jpg" alt="Фото места">
-              <div class="places__container">
-                <h2 class="places__title">Домбай</h2>
-                <button class="places__button-like"></button>
+            <div class="card">
+              <img class="card__image" src="images//donbay.jpg" alt="Фото Домбая">
+              <div class="card__container">
+                <h2 class="card__title">Домбай</h2>
+                <button class="card__button-like" type="button"
+                  aria-label="Кнопка 'мне нравится' карточки места"></button>
               </div>
-            </article>
+            </div>
           </li>
           <li class="places__item">
-            <article class="places__card">
-              <img class="places__image" src="images/karach.jpg" alt="Фото места">
-              <div class="places__container">
-                <h2 class="places__title">Карачаево-Черкесская Республика</h2>
-                <button class="places__button-like"></button>
+            <div class="card">
+              <img class="card__image" src="images/karach.jpg" alt="Фото Карачаево-Черкесии">
+              <div class="card__container">
+                <h2 class="card__title">Карачаево-Черкесская Республика</h2>
+                <button class="card__button-like" type="button"
+                  aria-label="Кнопка 'мне нравится' карточки места"></button>
               </div>
-            </article>
+            </div>
           </li>
         </ul>
       </section>
     </main>
     <footer class="footer">
-      <section class="copyright">
-        <p class="copyright__text">&#169; 2022 Mesto Russia</p>
-      </section>
+      <p class="footer__text">&copy; 2022 Mesto Russia</p>
     </footer>
   </div>
   <div class="popup">
-    <section class="popup__container">
+    <div class="popup__container">
       <h2 class="popup__title">Редактировать профиль</h2>
-      <form class="popup__form" action="post">
-        <input class="popup__input" type="text" placeholder="Жак-Ив Кусто">
-        <input class="popup__input" type="text" placeholder="Исследователь океана">
+      <form class="popup__form" name="edit-profile" method="post">
+        <input class="popup__input popup__input_type_name" name="profile-name" type="text" placeholder="Ваше имя">
+        <input class="popup__input popup__input_type_position" name="profile-position" type="text" placeholder="Ваш род деятельности">
         <button class="popup__submit" type="submit">Сохранить</button>
       </form>
-      <button class="popup__close"></button>
-    </section>
+      <button class="popup__close" type="button" aria-label="Кнопка для закрытия формы редактирования профиля"></button>
+    </div>
   </div>
   <script src="scripts/index.js"></script>
 </body>

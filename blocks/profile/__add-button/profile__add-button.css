@@ -1,11 +1,10 @@
 .profile__add-button {
   padding: 0;
-  border: none;
-  border: 1px solid #FFFFFF;
+  border: 2px solid #FFFFFF;
   border-radius: 2px;
   min-width: 150px;
   height: 50px;
-  background-color: black;
+  background-color: transparent;
   cursor: pointer;
   position: relative;
   align-self: center;
@@ -13,17 +12,18 @@
 
 .profile__add-button::after {
   position: absolute;
-  top: 10px;
+  top: 12px;
   content: " ";
   border: 1px solid white;
-  height: 22px;
+  height: 20px;
 }
+
 .profile__add-button::before {
   position: absolute;
-  top: 10px;
+  top: 12px;
   content: " ";
   border: 1px solid white;
-  height: 22px;
+  height: 20px;
   transform: rotate(90deg);
 }
 
@@ -34,5 +34,16 @@
 @media screen and (min-width: 320px) and (max-width: 720px) {
   .profile__add-button {
     width: 100%;
+    margin-top: 13px;
+  }
+
+  .profile__add-button::after {
+    top: 14px;
+    height: 15px;
+  }
+
+  .profile__add-button::before {
+    top: 14px;
+    height: 15px;
   }
 }

@@ -5,6 +5,10 @@
   grid-area: title;
   margin: 22px 0 0 0;
   align-self: flex-start;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 400px;
 }
 
 @media screen and (min-width: 320px) and (max-width: 720px) {
@@ -12,6 +16,7 @@
     justify-self: center;
     font-size: 27px;
     line-height: 33px;
-
+    margin-top: 25px;
+    max-width: 250px;
   }
 }

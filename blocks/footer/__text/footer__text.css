@@ -1,15 +1,14 @@
-.copyright__text {
+.footer__text {
   font-size: 18px;
   line-height: 22px;
   color: #545454;
   margin: 0 0 60px 0;
 }
 
-@media screen and (min-width: 320px) and (max-width: 720px) {
-  .copyright__text {
-    justify-self: center;
+@media screen and (min-width: 320px) and (max-width: 768px) {
+  .footer__text {
     font-size: 14px;
     line-height: 17px;
-
+    margin-bottom: 36px;
   }
 }
