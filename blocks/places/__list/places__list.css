@@ -4,7 +4,7 @@
   list-style-type: none;
   display: grid;
   grid-template-columns: minmax(220px, 282px) minmax(220px, 282px) minmax(220px, 282px);
-  grid-template-rows: auto auto;
+  grid-template-rows: minmax(auto, 361px) minmax(auto, 361px);
   gap: 20px 17px;
   justify-content: center;
 }
