@@ -55,18 +55,23 @@ function renderCards(arrayCards) {
   arrayCards.forEach(item => {
     let cardItem = cardTemplate.querySelector('.places__item').cloneNode(true);
     cardItem.querySelector('.card__image').src = item.link;
+    cardItem.querySelector('.card__image').alt = item.name;
     cardItem.querySelector('.card__title').textContent = item.name;
+    cardItem.querySelector('.card__button-like').addEventListener('click', likeButton);
     cardContainer.append(cardItem);
   });
 }
 
+function likeButton(evt) {
+  evt.target.classList.toggle('card__button-like_active');
+}
 
-function openPopup() {
-  popupProfile.classList.add('popup_opened');
+function openPopup(item) {
+  item.classList.add('popup_opened');
   loadData();
 }
-function closePopup() {
-  popupProfile.classList.remove('popup_opened');
+function closePopup(item) {
+  item.classList.remove('popup_opened');
 }
 function loadData() {
   inputName.value = nameUser.textContent;
@@ -76,13 +81,44 @@ function writeData() {
   nameUser.textContent = inputName.value;
   positionUser.textContent = inputPosition.value;
 }
+function writeDataPlace() {
+  let cardItem = cardTemplate.querySelector('.places__item').cloneNode(true);
+  cardItem.querySelector('.card__image').src = placeLink.value;
+  cardItem.querySelector('.card__image').alt = placeName.value;
+  cardItem.querySelector('.card__title').textContent = placeName.value;
+  cardItem.querySelector('.card__button-like').addEventListener('click', likeButton);
+  cardContainer.prepend(cardItem);
+  placeLink.value = "";
+  placeName.value = "";
+}
 function submitHandler (evt) {
   evt.preventDefault();
   writeData();
-  closePopup();
+  closePopup(popupProfile);
+}
+
+function submitHandlerAddCard(evt) {
+  evt.preventDefault();
+  writeDataPlace();
+  closePopup(popupPlace);
 }
 
 
-editButton.addEventListener('click', openPopup);
-closePopupProfile.addEventListener('click', closePopup);
+editButton.addEventListener('click', () => {
+  openPopup(popupProfile);
+});
+addPlaceButton.addEventListener('click', () => {
+  openPopup(popupPlace);
+});
+
+closePopupProfile.addEventListener('click', () => {
+  closePopup(popupProfile);
+});
+closePopupPlace.addEventListener('click', () => {
+  closePopup(popupPlace);
+  placeLink.value = "";
+  placeName.value = "";
+});
+
 editForm.addEventListener('submit', submitHandler);
+addForm.addEventListener('submit', submitHandlerAddCard);
