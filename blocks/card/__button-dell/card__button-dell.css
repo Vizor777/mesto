@@ -1,0 +1,12 @@
+.card__button-dell {
+  position: absolute;
+  background-image: url(../../../images/dell.svg);
+  background-color: transparent;
+  cursor: pointer;
+  top:20px;
+  right: 20px;
+  width: 18px;
+  height: 19px;
+  border: none;
+  padding: 0;
+}

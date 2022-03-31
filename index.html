@@ -24,7 +24,6 @@
       </section>
       <section class="places">
         <ul class="places__list">
-
         </ul>
       </section>
     </main>
@@ -54,6 +53,13 @@
       <button class="popup__close" type="button" aria-label="Кнопка для закрытия формы добавления карточки места"></button>
     </div>
   </div>
+  <div class="popup image-popup">
+    <div class="image-popup__container">
+      <img class="image-popup__img" src="" alt="">
+      <p class="image-popup__subtitle"></p>
+      <button class="image-popup__close" type="button" aria-label="Кнопка закрытия окна просмотра фото"></button>
+    </div>
+  </div>
   <template id="places__item">
     <li class="places__item">
       <div class="card">
@@ -62,6 +68,7 @@
           <h2 class="card__title"></h2>
           <button class="card__button-like" type="button" aria-label="Кнопка 'мне нравится' карточки места"></button>
         </div>
+        <button class="card__button-dell" type="button" aria-label="Кнопка удаления карточки места"></button>
       </div>
     </li>
   </template>

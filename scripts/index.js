@@ -1,5 +1,6 @@
 let popupProfile = document.querySelector('.popup_type_profile');
 let popupPlace = document.querySelector('.popup_type_add-card');
+let imagePopup = document.querySelector('.image-popup');
 
 let editButton = document.querySelector('.profile__edit-button');
 let addPlaceButton = document.querySelector('.profile__add-button');
@@ -9,6 +10,10 @@ let addForm = popupPlace.querySelector('.popup__form');
 
 let closePopupProfile = popupProfile.querySelector('.popup__close');
 let closePopupPlace = popupPlace.querySelector('.popup__close');
+let closePopupImage = imagePopup.querySelector('.image-popup__close');
+
+let imageName = imagePopup.querySelector('.image-popup__subtitle');
+let imageValue = imagePopup.querySelector('.image-popup__img');
 
 let inputName = editForm.querySelector('.popup__input_type_name');
 let inputPosition = editForm.querySelector('.popup__input_type_position');
@@ -54,12 +59,24 @@ renderCards(initialCards);
 function renderCards(arrayCards) {
   arrayCards.forEach(item => {
     let cardItem = cardTemplate.querySelector('.places__item').cloneNode(true);
+    let dellCardButton = cardItem.querySelector('.card__button-dell');
+    dellCardButton.addEventListener('click', function () {
+      let card = dellCardButton.closest(".places__item");
+      card.remove();
+    });
     cardItem.querySelector('.card__image').src = item.link;
     cardItem.querySelector('.card__image').alt = item.name;
+    cardItem.querySelector('.card__image').addEventListener('click', openCardPopup);
     cardItem.querySelector('.card__title').textContent = item.name;
     cardItem.querySelector('.card__button-like').addEventListener('click', likeButton);
     cardContainer.append(cardItem);
   });
+}
+
+function openCardPopup(evt) {
+  imageName.textContent = evt.target.alt;
+  imageValue.src = evt.target.src;
+  openPopup(imagePopup);
 }
 
 function likeButton(evt) {
@@ -83,15 +100,21 @@ function writeData() {
 }
 function writeDataPlace() {
   let cardItem = cardTemplate.querySelector('.places__item').cloneNode(true);
+  let dellCardButton = cardItem.querySelector('.card__button-dell');
+  dellCardButton.addEventListener('click', function () {
+    let card = dellCardButton.closest(".places__item");
+    card.remove();
+  });
   cardItem.querySelector('.card__image').src = placeLink.value;
   cardItem.querySelector('.card__image').alt = placeName.value;
   cardItem.querySelector('.card__title').textContent = placeName.value;
   cardItem.querySelector('.card__button-like').addEventListener('click', likeButton);
+  cardItem.querySelector('.card__image').addEventListener('click', openCardPopup);
   cardContainer.prepend(cardItem);
   placeLink.value = "";
   placeName.value = "";
 }
-function submitHandler (evt) {
+function submitHandler(evt) {
   evt.preventDefault();
   writeData();
   closePopup(popupProfile);
@@ -103,7 +126,15 @@ function submitHandlerAddCard(evt) {
   closePopup(popupPlace);
 }
 
+imagePopup.addEventListener('click', (evt) => {
 
+  if (evt.target.classList.contains('image-popup')) {
+    closePopup(imagePopup);
+  }
+})
+closePopupImage.addEventListener('click', () => {
+  closePopup(imagePopup);
+})
 editButton.addEventListener('click', () => {
   openPopup(popupProfile);
 });
