@@ -78,6 +78,7 @@ function openCardPopup(placeName, placeImage) {
   imageValue.src = placeImage;
   imageValue.alt = placeName;
   openPopup(imagePopup);
+  setEventEscClose();
 }
 
 function resetFormData(form) {
@@ -119,26 +120,99 @@ function handlePlaceFormSubmit(evt) {
   closePopup(popupPlace);
   resetFormData(addForm);
 }
+
+function invalidInput(inputList) {
+  return inputList.some((inputElement) => {
+    return !inputElement.validity.valid;
+  });
+}
+
+function toggleButtonForm (inputList, buttonElement) {
+  if (invalidInput(inputList)) {
+    buttonElement.classList.add('popup__submit_type_inactive');
+  } else {
+    buttonElement.classList.remove('popup__submit_type_inactive');
+  }
+};
+
+function validateForm(popup) {
+  const formList = Array.from(popup.querySelectorAll('.popup__form'));
+  formList.forEach(function(formItem) {
+    const inputList = Array.from(formItem.querySelectorAll('.popup__input'));
+    inputList.forEach(function(inputElement) {
+      const errorElement = formItem.querySelector(`.${inputElement.id}-error`);
+      if (!inputElement.validity.valid) {
+        inputElement.classList.add('popup__input_type_error');
+        errorElement.textContent = inputElement.validationMessage;
+        errorElement.classList.add('popup__input-error_active');
+      } else {
+        inputElement.classList.remove('popup__input_type_error');
+        errorElement.textContent = ' ';
+        errorElement.classList.remove('popup__input-error_active');
+      }
+    });
+    const buttonSubmit = formItem.querySelector('.popup__submit');
+    toggleButtonForm(inputList, buttonSubmit);
+  });
+}
+
+function hasEscEvent(evt) {
+  if (evt.keyCode == 27) {
+      document.querySelector('.popup_opened').classList.remove('popup_opened');
+      removeEventEscClose();
+  }
+}
+
+function setEventEscClose() {
+  document.querySelector('.container').addEventListener('keydown', hasEscEvent);
+}
+
+function removeEventEscClose() {
+  document.querySelector('.container').removeEventListener('keydown', hasEscEvent);
+}
+
 imagePopup.addEventListener('click', (evt) => {
   if (evt.target.classList.contains('image-popup')) {
     closePopup(imagePopup);
+    removeEventEscClose();
   }
-})
+});
+popupProfile.addEventListener('click', (evt) => {
+  if (evt.target.classList.contains('popup_type_profile')) {
+    closePopup(popupProfile);
+    removeEventEscClose();
+  }
+});
+popupPlace.addEventListener('click', (evt) => {
+  if (evt.target.classList.contains('popup_type_add-card')) {
+    closePopup(popupPlace);
+    removeEventEscClose();
+  }
+});
+
 closePopupImage.addEventListener('click', () => {
   closePopup(imagePopup);
-})
+  removeEventEscClose();
+});
 editButton.addEventListener('click', () => {
   openPopup(popupProfile);
+  setEventEscClose();
   loadProfileData();
+  validateForm(popupProfile);
 });
 addPlaceButton.addEventListener('click', () => {
   openPopup(popupPlace);
+  setEventEscClose();
+  toggleButtonForm(Array.from(popupPlace.querySelectorAll('.popup__input')), popupPlace.querySelector('.popup__submit'));
 });
 closePopupProfile.addEventListener('click', () => {
   closePopup(popupProfile);
+  removeEventEscClose();
 });
 closePopupPlace.addEventListener('click', () => {
   closePopup(popupPlace);
+  removeEventEscClose();
 });
 editForm.addEventListener('submit', handleProfileFormSubmit);
 addForm.addEventListener('submit', handlePlaceFormSubmit);
+

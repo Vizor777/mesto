@@ -34,13 +34,13 @@
   <div class="popup popup_type_profile">
     <div class="popup__container">
       <h2 class="popup__title">Редактировать профиль</h2>
-      <form class="popup__form" name="edit-profile" method="post">
+      <form class="popup__form" name="edit-profile" method="post" novalidate>
         <label class="popup__field">
-          <input class="popup__input popup__input_type_name " id="name-input" name="profile-name" type="text" placeholder="Ваше имя">
+          <input class="popup__input popup__input_type_name " id="name-input" name="profile-name" type="text" placeholder="Ваше имя" minlength="2" maxlength="40" required>
           <span class="popup__input-error name-input-error "></span>
         </label>
         <label class="popup__field">
-          <input class="popup__input popup__input_type_position" id="profile-input" name="profile-position" type="text" placeholder="Ваш род деятельности">
+          <input class="popup__input popup__input_type_position" id="profile-input" name="profile-position" type="text" placeholder="Ваш род деятельности" minlength="2" maxlength="200" required>
           <span class="popup__input-error profile-input-error"></span>
         </label>
         <button class="popup__submit" type="submit">Сохранить</button>
@@ -51,13 +51,13 @@
   <div class="popup popup_type_add-card">
     <div class="popup__container">
       <h2 class="popup__title">Новое место</h2>
-      <form class="popup__form" name="add-card" method="post">
+      <form class="popup__form" name="add-card" method="post" novalidate>
         <label class="popup__field">
-          <input class="popup__input popup__input_color popup__input_type_location" id="card-input" name="card-name" type="text" placeholder="Название">
+          <input class="popup__input popup__input_color popup__input_type_location" id="card-input" name="card-name" type="text" placeholder="Название" minlength="2" maxlength="30" required>
           <span class="popup__input-error card-input-error"></span>
         </label>
         <label class="popup__field">
-          <input class="popup__input popup__input_color popup__input_type_url" id="url-input" name="image-url" type="text" placeholder="Ссылка на картинку">
+          <input class="popup__input popup__input_color popup__input_type_url" id="url-input" name="image-url" type="url" placeholder="Ссылка на картинку" required>
           <span class="popup__input-error url-input-error"></span>
         </label>
         <button class="popup__submit" type="submit">Создать</button>
