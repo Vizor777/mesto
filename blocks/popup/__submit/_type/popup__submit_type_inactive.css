@@ -5,4 +5,5 @@
   opacity: 0.2;
   user-select: none;
   pointer-events: none;
+  box-sizing: border-box;
 }

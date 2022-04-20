@@ -2,10 +2,10 @@
   opacity: 0;
   visibility: hidden;
   position: absolute;
-  top: calc(100% + 1px);
+  top: 100%;
   left: 0;
   font-size: 12px;
   line-height: 15px;
   color: #FF0000;
-  transition: 0.4s;
+  transition: 0.2s;
 }
