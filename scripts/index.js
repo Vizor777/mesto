@@ -18,7 +18,6 @@ const nameUser = document.querySelector('.profile__name');
 const positionUser = document.querySelector('.profile__position');
 const cardTemplate = document.querySelector('#places__item').content;
 const cardContainer = document.querySelector('.places__list');
-const KEY_CODE = 27;
 const initialCards = [{
   name: 'Архыз',
   link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
@@ -79,7 +78,6 @@ function openCardPopup(placeName, placeImage) {
   imageValue.src = placeImage;
   imageValue.alt = placeName;
   openPopup(imagePopup);
-  setEventEscClose();
 }
 
 function resetFormData(form) {
@@ -131,7 +129,7 @@ function invalidInput(inputList) {
 }
 
 function hasEscEvent(evt) {
-  if (evt.keyCode == KEY_CODE) {
+  if (evt.key === "Escape") {
     closePopup(document.querySelector('.popup_opened'));
   }
 }
@@ -165,16 +163,21 @@ imageCloseButton.addEventListener('click', () => {
 });
 
 profileButton.addEventListener('click', () => {
+  const formElement = popupProfile.querySelector('.popup__form');
+  const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
+  inputList.forEach(function (inputElement) {
+    hideInputError(formElement, inputElement, 'popup__input_type_error', 'popup__input-error_active');
+  });
   openPopup(popupProfile);
-  setEventEscClose();
   loadProfileData();
-  validateForm(popupProfile);
 });
 
 placeButton.addEventListener('click', () => {
+  const buttonSubmit = popupPlace.querySelector('.popup__submit');
+  const formElement = popupPlace.querySelector('.popup__form');
+  const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
   openPopup(popupPlace);
-  setEventEscClose();
-  toggleButtonState(popupPlace.querySelector('.popup__submit'), Array.from(popupPlace.querySelector('.popup__form').querySelectorAll('.popup__input')), 'popup__submit_type_inactive');
+  toggleButtonState(buttonSubmit, inputList, 'popup__submit_type_inactive');
 });
 
 profileCloseButton.addEventListener('click', () => {

@@ -29,8 +29,10 @@ const hasInvalidInput = (inputList) => {
 const toggleButtonState = (buttonElement, inputList, inactiveButtonClass) => {
   if (hasInvalidInput(inputList)) {
     buttonElement.classList.add(inactiveButtonClass);
+    buttonElement.setAttribute("disabled", "disabled");
   } else {
     buttonElement.classList.remove(inactiveButtonClass);
+    buttonElement.removeAttribute("disabled");
   }
 };
 
@@ -43,13 +45,9 @@ const setEventListeners = (formElement, inputSelector, submitButtonSelector, ina
       checkInputValidity(formElement, inputElement, inputErrorClass, errorClass);
       toggleButtonState(buttonSubmit, inputList, inactiveButtonClass);
     });
-    inputElement.addEventListener('keydown', (evt) => {
-      if (buttonSubmit.classList.contains('popup__submit_type_inactive') && evt.keyCode == 13) {
-        evt.preventDefault();
-      }
-    });
   });
 };
+
 
 const enableValidation = ({ formSelector, inputSelector, submitButtonSelector, inactiveButtonClass, inputErrorClass, errorClass }) => {
   const formList = Array.from(document.querySelectorAll(formSelector));
@@ -70,23 +68,3 @@ enableValidation({
   errorClass: 'popup__input-error_active'
 });
 
-function validateForm(popup) {
-  const formList = Array.from(popup.querySelectorAll('.popup__form'));
-  formList.forEach(function (formItem) {
-    const inputList = Array.from(formItem.querySelectorAll('.popup__input'));
-    inputList.forEach(function (inputElement) {
-      const errorElement = formItem.querySelector(`.${inputElement.id}-error`);
-      if (!inputElement.validity.valid) {
-        inputElement.classList.add('popup__input_type_error');
-        errorElement.textContent = inputElement.validationMessage;
-        errorElement.classList.add('popup__input-error_active');
-      } else {
-        inputElement.classList.remove('popup__input_type_error');
-        errorElement.textContent = ' ';
-        errorElement.classList.remove('popup__input-error_active');
-      }
-    });
-    const buttonSubmit = formItem.querySelector('.popup__submit');
-    toggleButtonState(buttonSubmit, inputList, 'popup__submit_type_inactive');
-  });
-}
