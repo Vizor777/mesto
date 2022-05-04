@@ -1,3 +1,5 @@
+import { Card } from "./Card.js";
+
 const popupProfile = document.querySelector('.popup_type_profile');
 const popupPlace = document.querySelector('.popup_type_add-card');
 const imagePopup = document.querySelector('.image-popup');
@@ -45,48 +47,59 @@ const initialCards = [{
 ];
 renderCards(initialCards);
 
+// function renderCards(arrayCards) {
+//   arrayCards.forEach(item => {
+//     cardContainer.append(createCard(item.name, item.link));
+//   });
+// }
+
 function renderCards(arrayCards) {
   arrayCards.forEach(item => {
-    cardContainer.append(createCard(item.name, item.link));
+    cardContainer.append(new Card(item, 'places__item', () => {openPopup(imagePopup)}).generateCard());
   });
 }
 
-function createCard(name, link) {
-  const cardItem = cardTemplate.querySelector('.places__item').cloneNode(true);
-  const cardDellButton = cardItem.querySelector('.card__button-dell');
-  const imageCard = cardItem.querySelector('.card__image');
-  imageCard.src = link;
-  imageCard.alt = name;
-  cardItem.querySelector('.card__title').textContent = name;
-  imageCard.addEventListener('click', () => {
-    openCardPopup(imageCard.alt, imageCard.src)
-  });
-  cardItem.querySelector('.card__button-like').addEventListener('click', likeButton);
-  cardDellButton.addEventListener('click', function () {
-    const card = cardDellButton.closest(".places__item");
-    card.remove();
-  });
-  return cardItem;
-}
+// function createCard(name, link) {
+//   const cardItem = cardTemplate.querySelector('.places__item').cloneNode(true);
+//   const cardDellButton = cardItem.querySelector('.card__button-dell');
+//   const imageCard = cardItem.querySelector('.card__image');
+//   imageCard.src = link;
+//   imageCard.alt = name;
+//   cardItem.querySelector('.card__title').textContent = name;
+
+//   imageCard.addEventListener('click', () => {
+//     openCardPopup(imageCard.alt, imageCard.src)
+//   });
+
+//   cardItem.querySelector('.card__button-like').addEventListener('click', likeButton);
+
+//   cardDellButton.addEventListener('click', function () {
+//     const card = cardDellButton.closest(".places__item");
+//     card.remove();
+//   });
+
+//   return cardItem;
+// }
 
 function setPlaceData() {
-  cardContainer.prepend(createCard(placeName.value, placeLink.value));
+  // cardContainer.prepend(createCard(placeName.value, placeLink.value));
+  cardContainer.prepend(new Card({name: placeName.value, link: placeLink.value}, 'places__item', () => {openPopup(imagePopup)}).generateCard());
 }
 
-function openCardPopup(placeName, placeImage) {
-  imageName.textContent = placeName;
-  imageValue.src = placeImage;
-  imageValue.alt = placeName;
-  openPopup(imagePopup);
-}
+// function openCardPopup(placeName, placeImage) {
+//   imageName.textContent = placeName;
+//   imageValue.src = placeImage;
+//   imageValue.alt = placeName;
+//   openPopup(imagePopup);
+// }
 
 function resetFormData(form) {
   form.reset();
 }
 
-function likeButton(evt) {
-  evt.target.classList.toggle('card__button-like_active');
-}
+// function likeButton(evt) {
+//   evt.target.classList.toggle('card__button-like_active');
+// }
 
 function openPopup(item) {
   item.classList.add('popup_opened');
@@ -191,4 +204,5 @@ placeCloseButton.addEventListener('click', () => {
 profileForm.addEventListener('submit', handleProfileFormSubmit);
 
 placeForm.addEventListener('submit', handlePlaceFormSubmit);
+
 
