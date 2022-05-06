@@ -1,7 +1,4 @@
-const imagePopup = document.querySelector('.image-popup'); //нужно импортировать из индекса эти конст
-const imageName = imagePopup.querySelector('.image-popup__subtitle');
-const imageValue = imagePopup.querySelector('.image-popup__img');
-
+import { imageName, imageValue } from "./index.js";
 
 export class Card {
   constructor(data, template, callback) {
