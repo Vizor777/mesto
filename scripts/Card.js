@@ -1,5 +1,3 @@
-import { imageName, imageValue } from "./index.js";
-
 export class Card {
   constructor(data, template, callback) {
     this._name = data.name;
@@ -19,25 +17,17 @@ export class Card {
   }
 
   _setEventListeners() {
-    const cardDellButton = this._element.querySelector('.card__button-dell');
-    const cardLikeButton = this._element.querySelector('.card__button-like');
-    const imageCard = this._element.querySelector('.card__image');
-    imageCard.addEventListener('click', () => {
-      this._handleImageOpen();
-      this._callback();
+    this._cardDellButton = this._element.querySelector('.card__button-dell');
+    this._cardLikeButton = this._element.querySelector('.card__button-like');
+    this._cardImage.addEventListener('click', () => {
+      this._callback(this._name, this._link);
     });
-    cardDellButton.addEventListener('click', () => {
+    this._cardDellButton.addEventListener('click', () => {
       this._handleDellCard();
     });
-    cardLikeButton.addEventListener('click', (evt) => {
+    this._cardLikeButton.addEventListener('click', (evt) => {
       this._handleLikeCard(evt);
     });
-  }
-
-  _handleImageOpen() {
-    imageName.textContent = this._name;
-    imageValue.src = this._link;
-    imageValue.alt = this._name;
   }
 
   _handleLikeCard(evt) {
@@ -48,17 +38,16 @@ export class Card {
     this._element.remove();
   }
 
-
   generateCard() {
     this._element = this._getTemplate();
-    this._setEventListeners();
-    this._element.querySelector('.card__image').src = this._link;
-    this._element.querySelector('.card__image').alt = this._name;
+    this._cardImage = this._element.querySelector('.card__image');
+    this._cardImage.src = this._link;
+    this._cardImage.alt = this._name;
     this._element.querySelector('.card__title').textContent = this._name;
+    this._setEventListeners();
 
     return this._element;
   }
-
 }
 
 
