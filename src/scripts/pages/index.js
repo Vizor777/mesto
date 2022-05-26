@@ -9,6 +9,7 @@ import {
   placeButton, nameUser, positionUser,
   settingsValidation, initialCards
 } from "../utils/constants.js";
+import '../../pages/index.css';
 
 const renderCards = new Section({
   items: initialCards, renderer: (item) => {
