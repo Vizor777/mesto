@@ -11,29 +11,41 @@ import {
 } from "../utils/constants.js";
 import '../../pages/index.css';
 
+function setInputValues(data, popupForm) {
+  popupForm.userName.value = data.nameSelector;
+  popupForm.userPosition.value = data.infoSelector;
+}
+
+function createCard(data) {
+  const cardElement = new Card(data, 'places__item', handleCardClick).generateCard();
+  return cardElement;
+}
+
+const userData = new UserInfo({ nameSelector: '.profile__name', infoSelector: '.profile__position' });
+const popupImage = new PopupWithImage('.image-popup');
+
+
 const renderCards = new Section({
   items: initialCards, renderer: (item) => {
-    const cardElement = new Card(item, 'places__item', handleCardClick).generateCard();
-    renderCards.addItem(cardElement);
+    renderCards.addItem(createCard(item));
   }
 }, '.places__list');
 
-const PopupImage = new PopupWithImage('.image-popup');
-PopupImage.setEventListeners();
+popupImage.setEventListeners();
 
 const popupProfileForm = new PopupWithForm({
   popupSelector: '.popup_type_profile', callback: (formData) => {
-    const userData = new UserInfo({ nameSelector: '.profile__name', infoSelector: '.profile__position' });
     userData.setUserInfo({ data: formData });
     popupProfileForm.close();
   }
 });
 popupProfileForm.setEventListeners();
 
+
+
 const popupCardFrom = new PopupWithForm({
   popupSelector: '.popup_type_add-card', callback: (formData) => {
-    const cardElement = new Card(formData, 'places__item', handleCardClick).generateCard();
-    renderCards.addItem(cardElement);
+    renderCards.addItem(createCard(formData));
     popupCardFrom.close();
   }
 });
@@ -55,11 +67,11 @@ const enableValidation = (config) => {
 enableValidation(settingsValidation);
 
 function handleCardClick(name, link) {
-  PopupImage.open(name, link);
+  popupImage.open(name, link);
 }
 
 profileButton.addEventListener('click', () => {
-  popupProfileForm.loadProfileData({ userName: nameUser, userPosition: positionUser });
+  setInputValues(userData.getUserInfo(), popupProfileForm);
   formValidators['edit-profile'].resetValidation();
   popupProfileForm.open();
 });

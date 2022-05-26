@@ -5,14 +5,14 @@ export default class PopupWithForm extends Popup {
     super(popupSelector);
     this._callback = callback;
     this._formElement = this._popup.querySelector('.popup__form');
-    this._userName = this._formElement.querySelector('.popup__input_type_name');
-    this._userPosition = this._formElement.querySelector('.popup__input_type_position');
+    this.userName = this._formElement.querySelector('.popup__input_type_name');
+    this.userPosition = this._formElement.querySelector('.popup__input_type_position');
+    this._inputList = this._formElement.querySelectorAll('.popup__input');
   }
   _resetFormData(form) {
     form.reset();
   }
   _getInputValues() {
-    this._inputList = this._formElement.querySelectorAll('.popup__input');
     this._formValues = {};
     this._inputList.forEach(input => {
       this._formValues[input.name] = input.value;
@@ -29,10 +29,10 @@ export default class PopupWithForm extends Popup {
   }
   close() {
     super.close();
-
+    this._resetFormData(this._formElement);
   }
-  loadProfileData({userName, userPosition}) {
-    this._userName.value = userName.textContent;
-    this._userPosition.value = userPosition.textContent;
-  }
+  // loadProfileData({userName, userPosition}) {
+  //   this._userName.value = userName.textContent;
+  //   this._userPosition.value = userPosition.textContent;
+  // }
 }
