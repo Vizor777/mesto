@@ -1,3 +1,3 @@
 # mesto
 Проект: Место
-https://Vizor777.github.io/mesto
+https://Vizor777.github.io/gh-pages
