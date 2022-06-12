@@ -3,7 +3,7 @@ import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
-import PopupAcceptDell from "../components/PopupAcceptDell.js";
+import PopupAcceptDell from '../components/PopupAcceptDell.js';
 import UserInfo from "../components/UserInfo.js";
 import Api from "../components/Api.js";
 import {
@@ -29,73 +29,57 @@ const popupAvatarUpdate = new PopupWithForm({
   popupSelector: '.popup_type_update-avatar', callback: (inputsData) => {
     popupAvatarUpdate.submitButton.textContent = 'Сохранение...';
     api.setNewAvatar(inputsData)
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      }
-      )
-      .then(result => {
+      .then((result) => {
         userData.setAvatar(result.avatar);
-        popupAvatarUpdate.submitButton.textContent = 'Сохраненить';
         popupAvatarUpdate.close();
       })
-      .catch(result => console.log(result.status));
+      .catch(err => console.log(err))
+      .finally(() => popupAvatarUpdate.submitButton.textContent = 'Сохранить');
   }
 });
 popupAvatarUpdate.setEventListeners();
 
+
+
 api.getInitialCards()
-  .then(res => {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  })
   .then((result) => {
+
     renderCards = new Section({
       items: result, renderer: (item) => {
-        renderCards.addItem(createCard(item, item.owner._id == '1a57df309214a17ed27eb93c' ?
-          'places__my-item' : 'places__item', item._id, handlePutLike, handleDellike));
+        renderCards.addItem(createCard(item, item.owner._id === '1a57df309214a17ed27eb93c' ?
+          'places__my-item' : 'places__item', item._id, item.owner._id, handlePutLike, handleDellike));
       }
     }, '.places__list');
-    renderCards.renderItems();
-  });
+  })
+  .then(() => {renderCards.renderItems()});
 
 function setInputValues(data, popupForm) {
   popupForm.userName.value = data.nameSelector;
   popupForm.userPosition.value = data.infoSelector;
 }
 
-function createCard(data, template, id, handlePutLike, handleDellike) {
-  const cardElement = new Card(data, template, id, handleCardClick, handleDellClick, handlePutLike, handleDellike).generateCard();
+function createCard(data, template, idCard, idOwner, handlePutLike, handleDellike) {
+  const cardElement = new Card(data, template, idCard, idOwner, handleCardClick, handleDellClick, handlePutLike, handleDellike).generateCard();
   return cardElement;
 }
 
 function handlePutLike(cardId, likes) {
   api.setlike(cardId)
     .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
-    .then(res => {
       likes.textContent = res.likes.length;
+    })
+    .catch((err) => {
+      console.log(err);
     });
 }
 
 function handleDellike(cardId, likes) {
   api.dellike(cardId)
     .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
-    .then(res => {
       likes.textContent = res.likes.length;
+    })
+    .catch((err) => {
+      console.log(err);
     });
 }
 
@@ -107,16 +91,13 @@ const popupProfileForm = new PopupWithForm({
     userData.setUserInfo({ data: formData });
     popupProfileForm.submitButton.textContent = 'Сохранение...';
     api.setUserInfo(userData)
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
       .then(() => {
-        popupProfileForm.submitButton.textContent = 'Сохранение';
         popupProfileForm.close();
-      });
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {popupProfileForm.submitButton.textContent = 'Сохранение';});
   }
 });
 popupProfileForm.setEventListeners();
@@ -125,18 +106,12 @@ const popupCardFrom = new PopupWithForm({
   popupSelector: '.popup_type_add-card', callback: (formData) => {
     popupCardFrom.submitButton.textContent = 'Сохранение...';
     api.setCardInfo(formData)
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
       .then(result => {
-        renderCards.addItem(createCard(formData, 'places__my-item', result._id, handlePutLike, handleDellike));
-        popupCardFrom.submitButton.textContent = 'Создать';
+        renderCards.addItem(createCard(result, 'places__my-item', result._id, result.owner._id, handlePutLike, handleDellike));
         popupCardFrom.close();
       })
-      .catch(err => { console.log(err) })
+      .catch(err => { console.log(err)})
+      .finally(() => {popupCardFrom.submitButton.textContent = 'Создать';});
 
   }
 });
@@ -160,19 +135,17 @@ function handleCardClick(name, link) {
   popupImage.open(name, link);
 }
 
+const popupAccept = popupAcceptDell.getFormElement();
+
 function handleDellClick(callback, cardId) {
   popupAcceptDell.open();
-  document.addEventListener('submit', () => {
+  popupAccept.addEventListener('submit', () => {
+    popupAccept.querySelector('.popup__submit').textContent = 'Удаление...';
     api.delCard(cardId)
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
-      .then(() => callback());
-    callback();
-    popupAcceptDell.close();
+      .then(() => callback())
+      .then(() => {popupAcceptDell.close()})
+      .catch(err => { console.log(err)})
+      .finally(() => {popupAccept.querySelector('.popup__submit').textContent = 'Да';});
   });
 }
 
@@ -194,14 +167,9 @@ popupAvatar.addEventListener('click', function () {
 
 
 api.getUserInfo()
-  .then(res => {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  })
   .then((result) => {
     userData.setAvatar(result.avatar);
     userData.setUserInfo({ data: result });
-  });
+  })
+  .catch(err => { console.log(err)});
 

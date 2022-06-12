@@ -13,8 +13,10 @@ export default class UserInfo {
     return this._formValues;
   }
   setUserInfo({data}) {
-    this._name.textContent = data.hasOwnProperty('profile-name') ? data['profile-name'] : data.name;
-    this._info.textContent = data.hasOwnProperty('profile-position') ? data['profile-position'] : data.about;
+    if ({data}) {
+      this._name.textContent = data.hasOwnProperty('profile-name') ? data['profile-name'] : data.name;
+      this._info.textContent = data.hasOwnProperty('profile-position') ? data['profile-position'] : data.about;
+    }
   }
   setAvatar(url) {
     this._avatar.src = url;
