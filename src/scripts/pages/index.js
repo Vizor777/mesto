@@ -192,6 +192,7 @@ popupAvatar.addEventListener('click', function () {
   popupAvatarUpdate.open();
 });
 
+
 api.getUserInfo()
   .then(res => {
     if (res.ok) {
@@ -203,3 +204,4 @@ api.getUserInfo()
     userData.setAvatar(result.avatar);
     userData.setUserInfo({ data: result });
   });
+
