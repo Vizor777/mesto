@@ -15,9 +15,10 @@
     <main class="main">
       <section class="profile">
         <div class="profile__info">
-          <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="Аватар профиля">
-          <h1 class="profile__name">Жак-Ив Кусто</h1>
-          <p class="profile__position">Исследователь океана</p>
+          <div class="profile__avatar-container"></div>
+          <img class="profile__avatar" src="" alt="Аватар профиля">
+          <h1 class="profile__name"></h1>
+          <p class="profile__position"></p>
           <button class="profile__edit-button" type="button" aria-label="Кнопка изменения профиля"></button>
         </div>
         <button class="profile__add-button" type="button" aria-label="Кнопка добавления карточки места"></button>
@@ -72,18 +73,56 @@
       <button class="popup__close" type="button" aria-label="Кнопка закрытия окна просмотра фото"></button>
     </div>
   </div>
+  <div class="popup popup_type_accept-dell">
+    <div class="popup__container">
+      <h2 class="popup__title">Вы уверены?</h2>
+      <form class="popup__form popup__form_accept-del" name="accept-dell" method="post">
+        <button class="popup__submit" type="submit">Да</button>
+      </form>
+      <button class="popup__close" type="button" aria-label="Кнопка закрытия окна удаления карточки"></button>
+    </div>
+  </div>
+  <div class="popup popup_type_update-avatar">
+    <div class="popup__container">
+      <h2 class="popup__title">Обновить аватар</h2>
+      <form class="popup__form popup__form_update-avatar" name="update-avatar" method="post">
+        <label class="popup__field">
+          <input class="popup__input popup__input_color popup__input_type_url" id="url-input" name="link" type="url" placeholder="Ссылка на картинку" required>
+          <span class="popup__input-error url-input-error"></span>
+        </label>
+        <button class="popup__submit popup__submit_margin" type="submit">Сохранить</button>
+      </form>
+      <button class="popup__close" type="button" aria-label="Кнопка закрытия окна удаления карточки"></button>
+    </div>
+  </div>
+  <template id="places__my-item">
+    <li class="places__item places__my-item">
+      <div class="card">
+        <img class="card__image" src="#" alt="#">
+        <div class="card__container">
+          <h2 class="card__title"></h2>
+          <div class="card__like-info">
+            <button class="card__button-like" type="button" aria-label="Кнопка 'мне нравится' карточки места"></button>
+            <div class="card__counter-like"></div>
+          </div>
+        </div>
+        <button class="card__button-dell" type="button" aria-label="Кнопка удаления карточки места"></button>
+      </div>
+    </li>
+  </template>
   <template id="places__item">
     <li class="places__item">
       <div class="card">
         <img class="card__image" src="#" alt="#">
         <div class="card__container">
           <h2 class="card__title"></h2>
-          <button class="card__button-like" type="button" aria-label="Кнопка 'мне нравится' карточки места"></button>
+          <div class="card__like-info">
+            <button class="card__button-like" type="button" aria-label="Кнопка 'мне нравится' карточки места"></button>
+            <div class="card__counter-like"></div>
+          </div>
         </div>
-        <button class="card__button-dell" type="button" aria-label="Кнопка удаления карточки места"></button>
       </div>
     </li>
   </template>
-
 </body>
 </html>

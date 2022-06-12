@@ -5,6 +5,7 @@ export default class PopupWithForm extends Popup {
     super(popupSelector);
     this._callback = callback;
     this._formElement = this._popup.querySelector('.popup__form');
+    this.submitButton = this._popup.querySelector('.popup__submit');
     this.userName = this._formElement.querySelector('.popup__input_type_name');
     this.userPosition = this._formElement.querySelector('.popup__input_type_position');
     this._inputList = this._formElement.querySelectorAll('.popup__input');
@@ -31,8 +32,5 @@ export default class PopupWithForm extends Popup {
     super.close();
     this._resetFormData(this._formElement);
   }
-  // loadProfileData({userName, userPosition}) {
-  //   this._userName.value = userName.textContent;
-  //   this._userPosition.value = userPosition.textContent;
-  // }
+
 }

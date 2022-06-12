@@ -1,0 +1,17 @@
+.profile__avatar-container {
+  position: absolute;
+  border-radius: 50%;
+  object-fit: cover;
+  width: 130px;
+  height: 130px;
+  left: -5px;
+
+}
+
+.profile__avatar-container:hover {
+  background-image: url(../../../images/Vector.png);
+  background-repeat: no-repeat;
+  background-position: 55%;
+  background-color: rgba(0, 0, 0, 0.8);
+
+}
