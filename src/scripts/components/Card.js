@@ -3,12 +3,21 @@ export default class Card {
     this._name = data.name;
     this._link = data.link;
     this._likes = data.hasOwnProperty('likes') ? data.likes.length : 0;
+    this._likesList = data.likes;
     this._template = template;
     this._id = id;
     this._callbackImg = callbackImg;
     this._callbackAccept = callbackAccept;
     this._callPutLike = callPutLike;
     this._callDellike = callDellike;
+  }
+
+  _checkLikeCard() {
+    this._likesList.forEach(item => {
+      if (item._id == '1a57df309214a17ed27eb93c') {
+        this._element.querySelector('.card__button-like').classList.add('card__button-like_active');
+      }
+    });
   }
 
   _getTemplate() {
@@ -59,6 +68,7 @@ export default class Card {
     this._cardImage.alt = this._name;
     this._element.querySelector('.card__title').textContent = this._name;
     this._setEventListeners();
+    this._checkLikeCard();
 
     return this._element;
   }
