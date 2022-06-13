@@ -6,6 +6,7 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import PopupAcceptDell from '../components/PopupAcceptDell.js';
 import UserInfo from "../components/UserInfo.js";
 import Api from "../components/Api.js";
+import renderLoading from "../utils/utils.js";
 import {
   profileButton,
   placeButton,
@@ -27,36 +28,42 @@ const popupImage = new PopupWithImage('.image-popup');
 const popupAcceptDell = new PopupAcceptDell('.popup_type_accept-dell');
 const popupAvatarUpdate = new PopupWithForm({
   popupSelector: '.popup_type_update-avatar', callback: (inputsData) => {
-    popupAvatarUpdate.submitButton.textContent = 'Сохранение...';
+    renderLoading(true, popupAvatarUpdate.submitButton);
     api.setNewAvatar(inputsData)
       .then((result) => {
         userData.setAvatar(result.avatar);
         popupAvatarUpdate.close();
       })
       .catch(err => console.log(err))
-      .finally(() => popupAvatarUpdate.submitButton.textContent = 'Сохранить');
+      .finally(() => renderLoading(false, popupAvatarUpdate.submitButton));
   }
 });
 popupAvatarUpdate.setEventListeners();
+const popupAccept = popupAcceptDell.getFormElement();
+const popupSubmit = popupAccept.querySelector('.popup__submit');
 
-api.getInitialCards()
-  .then((result) => {
+api.getPromisesData()
+  .then(([dataUser, cardsData]) => {
+    userData.setAvatar(dataUser.avatar);
+    userData.setUserInfo({ data: dataUser });
+    userData.setUserId(dataUser._id);
     renderCards = new Section({
-      items: result, renderer: (item) => {
-        renderCards.addItemAppEnd(createCard(item, item.owner._id === '1a57df309214a17ed27eb93c' ?
-          'places__my-item' : 'places__item', item._id, item.owner._id, handlePutLike, handleDellike));
+      items: cardsData, renderer: (item) => {
+        renderCards.addItemAppEnd(createCard(item, item.owner._id === dataUser._id ?
+          'places__my-item' : 'places__item', item._id, item.owner._id, handlePutLike, handleDellike, dataUser._id));
       }
     }, '.places__list');
   })
-  .then(() => {renderCards.renderItems()});
+  .then(() => { renderCards.renderItems() })
+  .catch(err => { console.log(err) });
 
 function setInputValues(data, popupForm) {
   popupForm.userName.value = data.nameSelector;
   popupForm.userPosition.value = data.infoSelector;
 }
 
-function createCard(data, template, idCard, idOwner, handlePutLike, handleDellike) {
-  const cardElement = new Card(data, template, idCard, idOwner, handleCardClick, handleDellClick, handlePutLike, handleDellike).generateCard();
+function createCard(data, template, idCard, idOwner, handlePutLike, handleDellike, userId) {
+  const cardElement = new Card(data, template, idCard, idOwner, handleCardClick, handleDellClick, handlePutLike, handleDellike, userId).generateCard();
   return cardElement;
 }
 
@@ -86,7 +93,7 @@ popupAcceptDell.setEventListeners();
 const popupProfileForm = new PopupWithForm({
   popupSelector: '.popup_type_profile', callback: (formData) => {
     userData.setUserInfo({ data: formData });
-    popupProfileForm.submitButton.textContent = 'Сохранение...';
+    renderLoading(true, popupProfileForm.submitButton);
     api.setUserInfo(userData)
       .then(() => {
         popupProfileForm.close();
@@ -94,21 +101,21 @@ const popupProfileForm = new PopupWithForm({
       .catch((err) => {
         console.log(err);
       })
-      .finally(() => { popupProfileForm.submitButton.textContent = 'Сохранение'; });
+      .finally(() => { renderLoading(false, popupProfileForm.submitButton) });
   }
 });
 popupProfileForm.setEventListeners();
 
 const popupCardFrom = new PopupWithForm({
   popupSelector: '.popup_type_add-card', callback: (formData) => {
-    popupCardFrom.submitButton.textContent = 'Сохранение...';
+    renderLoading(true, popupCardFrom.submitButton);
     api.setCardInfo(formData)
       .then(result => {
-        renderCards.addItem(createCard(result, 'places__my-item', result._id, result.owner._id, handlePutLike, handleDellike));
+        renderCards.addItem(createCard(result, 'places__my-item', result._id, result.owner._id, handlePutLike, handleDellike, result.owner._id));
         popupCardFrom.close();
       })
       .catch(err => { console.log(err) })
-      .finally(() => { popupCardFrom.submitButton.textContent = 'Создать'; });
+      .finally(() => { renderLoading(false, popupCardFrom.submitButton) });
 
   }
 });
@@ -132,17 +139,17 @@ function handleCardClick(name, link) {
   popupImage.open(name, link);
 }
 
-const popupAccept = popupAcceptDell.getFormElement();
+
 
 function handleDellClick(callback, cardId) {
   popupAcceptDell.open();
   popupAcceptDell.setSubmithandler(() => {
-    popupAccept.querySelector('.popup__submit').textContent = 'Удаление...';
+    renderLoading(true, popupSubmit);
     api.delCard(cardId)
       .then(() => callback())
       .then(() => { popupAcceptDell.close() })
       .catch(err => { console.log(err) })
-      .finally(() => { popupAccept.querySelector('.popup__submit').textContent = 'Да'; });
+      .finally(() => { renderLoading(false, popupSubmit) });
   });
 }
 
@@ -162,9 +169,3 @@ popupAvatar.addEventListener('click', function () {
   popupAvatarUpdate.open();
 });
 
-api.getUserInfo()
-  .then((result) => {
-    userData.setAvatar(result.avatar);
-    userData.setUserInfo({ data: result });
-  })
-  .catch(err => { console.log(err) });

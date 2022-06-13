@@ -1,5 +1,5 @@
 export default class Card {
-  constructor(data, template, idCard, idOwner, callbackImg, callbackAccept, callPutLike, callDellike) {
+  constructor(data, template, idCard, idOwner, callbackImg, callbackAccept, callPutLike, callDellike, initUserId) {
     this._name = data.name;
     this._link = data.link;
     this._likes = data.hasOwnProperty('likes') ? data.likes.length : 0;
@@ -7,6 +7,7 @@ export default class Card {
     this._template = template;
     this._idCard = idCard;
     this._idOwner = idOwner;
+    this._initUserId = initUserId;
     this._callbackImg = callbackImg;
     this._callbackAccept = callbackAccept;
     this._callPutLike = callPutLike;
@@ -15,7 +16,7 @@ export default class Card {
 
   _checkLikeCard() {
     this._likesList.forEach(item => {
-      if (item._id === '1a57df309214a17ed27eb93c') {
+      if (item._id === this._initUserId) {
         this._element.querySelector('.card__button-like').classList.add('card__button-like_active');
       }
     });
@@ -28,11 +29,11 @@ export default class Card {
       .querySelector(`.${this._template}`)
       .cloneNode(true);
 
-      return cardElement;
+    return cardElement;
   }
 
   _setEventListeners() {
-    if (this._idOwner === '1a57df309214a17ed27eb93c') {
+    if (this._idOwner === this._initUserId) {
       this._cardDellButton = this._element.querySelector('.card__button-dell');
       this._cardDellButton.addEventListener('click', () => {
         this._callbackAccept(this._handleDellCard.bind(this), this._idCard);
