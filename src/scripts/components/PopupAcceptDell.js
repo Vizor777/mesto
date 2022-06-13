@@ -10,4 +10,15 @@ export default class PopupAcceptDell extends Popup {
     return this._formElement;
   }
 
+  setSubmithandler(data) {
+    this._data = data;
+  }
+
+  setEventListeners() {
+    super.setEventListeners();
+    this._popup.addEventListener('submit', () => {
+      this._data();
+    });
+  }
+
 }

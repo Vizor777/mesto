@@ -39,14 +39,11 @@ const popupAvatarUpdate = new PopupWithForm({
 });
 popupAvatarUpdate.setEventListeners();
 
-
-
 api.getInitialCards()
   .then((result) => {
-
     renderCards = new Section({
       items: result, renderer: (item) => {
-        renderCards.addItem(createCard(item, item.owner._id === '1a57df309214a17ed27eb93c' ?
+        renderCards.addItemAppEnd(createCard(item, item.owner._id === '1a57df309214a17ed27eb93c' ?
           'places__my-item' : 'places__item', item._id, item.owner._id, handlePutLike, handleDellike));
       }
     }, '.places__list');
@@ -97,7 +94,7 @@ const popupProfileForm = new PopupWithForm({
       .catch((err) => {
         console.log(err);
       })
-      .finally(() => {popupProfileForm.submitButton.textContent = 'Сохранение';});
+      .finally(() => { popupProfileForm.submitButton.textContent = 'Сохранение'; });
   }
 });
 popupProfileForm.setEventListeners();
@@ -110,8 +107,8 @@ const popupCardFrom = new PopupWithForm({
         renderCards.addItem(createCard(result, 'places__my-item', result._id, result.owner._id, handlePutLike, handleDellike));
         popupCardFrom.close();
       })
-      .catch(err => { console.log(err)})
-      .finally(() => {popupCardFrom.submitButton.textContent = 'Создать';});
+      .catch(err => { console.log(err) })
+      .finally(() => { popupCardFrom.submitButton.textContent = 'Создать'; });
 
   }
 });
@@ -139,13 +136,13 @@ const popupAccept = popupAcceptDell.getFormElement();
 
 function handleDellClick(callback, cardId) {
   popupAcceptDell.open();
-  popupAccept.addEventListener('submit', () => {
+  popupAcceptDell.setSubmithandler(() => {
     popupAccept.querySelector('.popup__submit').textContent = 'Удаление...';
     api.delCard(cardId)
       .then(() => callback())
-      .then(() => {popupAcceptDell.close()})
-      .catch(err => { console.log(err)})
-      .finally(() => {popupAccept.querySelector('.popup__submit').textContent = 'Да';});
+      .then(() => { popupAcceptDell.close() })
+      .catch(err => { console.log(err) })
+      .finally(() => { popupAccept.querySelector('.popup__submit').textContent = 'Да'; });
   });
 }
 
@@ -165,11 +162,9 @@ popupAvatar.addEventListener('click', function () {
   popupAvatarUpdate.open();
 });
 
-
 api.getUserInfo()
   .then((result) => {
     userData.setAvatar(result.avatar);
     userData.setUserInfo({ data: result });
   })
-  .catch(err => { console.log(err)});
-
+  .catch(err => { console.log(err) });
